@@ -1,0 +1,202 @@
+<html>
+	<head>
+		<title>GemFire Performance Test</title>
+		<link rel="stylesheet" type="text/css" href="styles/app.css">
+		<script type="text/javascript">
+		
+		function exeTest()
+		{
+	
+			var controlPanel = document.getElementById("controlPanel");
+			controlPanel.style.display = "none";
+			
+			var resultsTable = document.getElementById("resultPanel");
+			
+			resultsTable.innerHTML = "&nbsp;";
+			
+
+			
+			var criteria = {
+					orderCount : 800
+				};
+			
+			
+			var  xhttp;
+			
+			if (window.XMLHttpRequest) {
+			    // code for modern browsers
+			    xhttp = new XMLHttpRequest();
+			 } else {
+			    // code for old IE browsers
+			    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			resultsTable.innerHTML = "Statistics times printed to standard output";
+			
+
+			  xhttp.open("POST", "run", true);
+			  xhttp.setRequestHeader("Content-Type","application/json");
+			  xhttp.send(JSON.stringify(criteria));s
+			  
+			return false;
+		}//-----------------------------------
+		
+		function decorateStatResult(statView)
+		{
+			var resultsTable = document.getElementById("resultsTable");
+			resultsTable.style.display = "block";
+			
+			 document.getElementById("inMsgGetAvg").innerHTML = 
+				 statView.inMsgGetAvg;
+			 document.getElementById("inMsgGetMin").innerHTML = 
+				 statView.inMsgGetMin;
+
+			 document.getElementById("inMsgGetMax").innerHTML = 
+				 statView.inMsgGetMax;
+			 
+			 document.getElementById("outMsgGetAvg").innerHTML = 
+				 statView.outMsgGetAvg;
+			 
+			 document.getElementById("outMsgGetMin").innerHTML = 
+				 statView.outMsgGetMin;
+
+			 document.getElementById("outMsgGetMax").innerHTML = 
+				 statView.outMsgGetMax;
+
+			 document.getElementById("orderDetailGetAvg").innerHTML = 
+				 statView.orderDetailGetAvg;
+
+			 document.getElementById("orderDetailGetMin").innerHTML = 
+				 statView.orderDetailGetMin;
+			 
+			 document.getElementById("orderDetailGetMax").innerHTML = 
+				 statView.orderDetailGetMax;
+			 
+			 document.getElementById("executionGetAvg").innerHTML = 
+				 statView.executionGetAvg;
+			 
+
+			 document.getElementById("executionGetMin").innerHTML = 
+				 statView.executionGetMin;
+
+
+			 document.getElementById("executionGetMax").innerHTML = 
+				 statView.executionGetMax;
+
+			 //qfMessageGetAvg
+			 document.getElementById("qfMessageGetAvg").innerHTML = 
+				 statView.qfMessageGetAvg;
+			 
+			 document.getElementById("qfMessageGetMin").innerHTML = 
+				 statView.qfMessageGetMin;
+			 
+			 document.getElementById("qfMessageGetMax").innerHTML = 
+				 statView.qfMessageGetMax;
+			 
+		     document.getElementById("inMsgPutAvg").innerHTML = 
+		       statView.inMsgPutAvg;
+
+		     document.getElementById("inMsgPutMin").innerHTML = 
+			       statView.inMsgPutMin;
+
+		     document.getElementById("inMsgPutMax").innerHTML = 
+			       statView.inMsgPutMax;
+
+		     document.getElementById("outMsgPutAvg").innerHTML = 
+		       statView.outMsgPutAvg;
+
+		     document.getElementById("outMsgPutMin").innerHTML = 
+			       statView.outMsgPutMin;
+
+		     document.getElementById("outMsgPutMax").innerHTML = 
+			       statView.outMsgPutMax;
+		     
+		     document.getElementById("orderDetailPutAvg").innerHTML = 
+		       statView.orderDetailPutAvg;
+		     
+		     document.getElementById("orderDetailPutMin").innerHTML = 
+			       statView.orderDetailPutMin;
+		     
+		     document.getElementById("orderDetailPutMax").innerHTML = 
+			       statView.orderDetailPutMax;
+		     
+		     document.getElementById("executionPutAvg").innerHTML = 
+		       statView.executionPutAvg;
+		     
+		     document.getElementById("executionPutMin").innerHTML = 
+			       statView.executionPutMin;
+		     
+		     document.getElementById("executionPutMax").innerHTML = 
+			       statView.executionPutMax;
+		    
+		     
+		     document.getElementById("qfMessagePutAvg").innerHTML = 
+		       statView.qfMessagePutAvg;
+		     
+
+		     document.getElementById("qfMessagePutMin").innerHTML = 
+		       statView.qfMessagePutMin;
+		     
+		     document.getElementById("qfMessagePutMax").innerHTML = 
+			       statView.qfMessagePutMax;
+			 
+		}
+		</script>
+	</head>
+	<body>
+		<h1>GemFire Performance </h1>
+		<h2>Test Order Routing Application</h2>
+		<pre>
+		
+
+This application simulates the process of orders at a rate of multiples of 200/s. 
+Example, 200, 400, then go to 800 orders.
+
+
+* The normal expected order rate is 200 orders/sec
+
+For every order there will be:
+
+* an inmsg insert
+* an orderDetail insert
+* an outmsg insert
+
+Shortly (3 milliseconds) after that will be the execution. 
+
+For every execution, there will be:
+
+* an inmsg insert
+* an orderDetail read
+* an orderDetail update
+* an execution insert
+* an out msg insert
+* for every order, 1.2 executions
+
+
+There will be an insert into the QFMessage for each inmsg and outmsg
+
+The application will capture  the following READ/WRITE region timings
+* mean                 
+* min                                     
+* 90.00%                 
+* 99.00%             
+* 99.90%             
+* 99.99%             
+* max               
+* count    
+		
+		</pre>
+		<div id="controlPanel">
+	
+			
+			<button onclick="return exeTest();">Start Test</button>
+			<!-- button onclick="testWait();return false">Waiting Test</button-->
+		</div>
+		
+		
+		<div id="resultPanel" >
+		    
+		    ----
+		</div>
+	</body>
+</html>

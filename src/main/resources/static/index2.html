@@ -1,0 +1,317 @@
+<html>
+	<head>
+		<title>GemFire Performance Test</title>
+		<link rel="stylesheet" type="text/css" href="styles/app.css">
+		<script type="text/javascript">
+		
+		
+		function testWait()
+		{
+
+			var  xhttp;
+			
+			if (window.XMLHttpRequest) {
+			    // code for modern browsers
+			    xhttp = new XMLHttpRequest();
+			 } else {
+			    // code for old IE browsers
+			    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4) {
+			    	  
+			    	  if(this.status == 200)
+			    		 {
+			    		  alert("OUTPUT:"+this.responseText);
+			    		  
+			    		 }
+			    	  	 else
+			    		 {
+			    		  alert("ERROR:"+this.responseText);
+			    		 }
+			    }
+			  };
+			  xhttp.open("POST", "wait", true);
+			  xhttp.setRequestHeader("Content-Type","application/json");
+			  var criteria = {};
+			  
+			  xhttp.send(JSON.stringify(criteria));
+		}
+		function exeTest()
+		{
+	
+			var progressBar = document.getElementById("progressBar");
+			var resultsTable = document.getElementById("resultsTable");
+			
+			var criteria = {
+					executions : document.getElementById("executionSize").value,
+				    inMsg : document.getElementById("inMsgSize").value,
+				    orderDetails : document.getElementById("orderDetailSize").value,
+				    outMsg : document.getElementById("outMsgSize").value,
+				    qfMsg : document.getElementById("qfMessageSize").value,
+				    workerCount : document.getElementById("workerCount").value
+			};
+			
+			//Hide Results
+			resultsTable.style.display = "none";
+			
+			//Show Progress Bar
+			progressBar.style.display = "block";
+			
+			
+			var  xhttp;
+			
+			if (window.XMLHttpRequest) {
+			    // code for modern browsers
+			    xhttp = new XMLHttpRequest();
+			 } else {
+			    // code for old IE browsers
+			    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			
+// 			  xhttp.onreadystatechange = function() {
+// 			    if (this.readyState == 4) {
+			    	  
+// 			    	  if(this.status == 200)
+// 			    		 {
+// 				    	   var statView = JSON.parse(this.responseText);
+// 				    	   decorateStatResult(statView);
+			    		  
+// 			    		 }
+// 			    	  	 else
+// 			    		 {
+// 			    		  alert("ERROR:"+this.responseText);
+// 			    		 }
+			    	  
+			    	  
+// 			    	  var progressBar = document.getElementById("progressBar");
+// 			    	  progressBar.style.display = "none";
+			       
+// 			    }
+// 			  };
+
+
+			var resultsTable = document.getElementById("resultsTable");
+			resultsTable.style.display = "block";
+			
+			resultsTable.innerHtml = "Avg/Min/Max times printed to standard output";
+			
+
+			  xhttp.open("POST", "run", true);
+			  xhttp.setRequestHeader("Content-Type","application/json");
+			  xhttp.send(JSON.stringify(criteria));
+			  
+			return false;
+		}//-----------------------------------
+		
+		function decorateStatResult(statView)
+		{
+			var resultsTable = document.getElementById("resultsTable");
+			resultsTable.style.display = "block";
+			
+			 document.getElementById("inMsgGetAvg").innerHTML = 
+				 statView.inMsgGetAvg;
+			 document.getElementById("inMsgGetMin").innerHTML = 
+				 statView.inMsgGetMin;
+
+			 document.getElementById("inMsgGetMax").innerHTML = 
+				 statView.inMsgGetMax;
+			 
+			 document.getElementById("outMsgGetAvg").innerHTML = 
+				 statView.outMsgGetAvg;
+			 
+			 document.getElementById("outMsgGetMin").innerHTML = 
+				 statView.outMsgGetMin;
+
+			 document.getElementById("outMsgGetMax").innerHTML = 
+				 statView.outMsgGetMax;
+
+			 document.getElementById("orderDetailGetAvg").innerHTML = 
+				 statView.orderDetailGetAvg;
+
+			 document.getElementById("orderDetailGetMin").innerHTML = 
+				 statView.orderDetailGetMin;
+			 
+			 document.getElementById("orderDetailGetMax").innerHTML = 
+				 statView.orderDetailGetMax;
+			 
+			 document.getElementById("executionGetAvg").innerHTML = 
+				 statView.executionGetAvg;
+			 
+
+			 document.getElementById("executionGetMin").innerHTML = 
+				 statView.executionGetMin;
+
+
+			 document.getElementById("executionGetMax").innerHTML = 
+				 statView.executionGetMax;
+
+			 //qfMessageGetAvg
+			 document.getElementById("qfMessageGetAvg").innerHTML = 
+				 statView.qfMessageGetAvg;
+			 
+			 document.getElementById("qfMessageGetMin").innerHTML = 
+				 statView.qfMessageGetMin;
+			 
+			 document.getElementById("qfMessageGetMax").innerHTML = 
+				 statView.qfMessageGetMax;
+			 
+		     document.getElementById("inMsgPutAvg").innerHTML = 
+		       statView.inMsgPutAvg;
+
+		     document.getElementById("inMsgPutMin").innerHTML = 
+			       statView.inMsgPutMin;
+
+		     document.getElementById("inMsgPutMax").innerHTML = 
+			       statView.inMsgPutMax;
+
+		     document.getElementById("outMsgPutAvg").innerHTML = 
+		       statView.outMsgPutAvg;
+
+		     document.getElementById("outMsgPutMin").innerHTML = 
+			       statView.outMsgPutMin;
+
+		     document.getElementById("outMsgPutMax").innerHTML = 
+			       statView.outMsgPutMax;
+		     
+		     document.getElementById("orderDetailPutAvg").innerHTML = 
+		       statView.orderDetailPutAvg;
+		     
+		     document.getElementById("orderDetailPutMin").innerHTML = 
+			       statView.orderDetailPutMin;
+		     
+		     document.getElementById("orderDetailPutMax").innerHTML = 
+			       statView.orderDetailPutMax;
+		     
+		     document.getElementById("executionPutAvg").innerHTML = 
+		       statView.executionPutAvg;
+		     
+		     document.getElementById("executionPutMin").innerHTML = 
+			       statView.executionPutMin;
+		     
+		     document.getElementById("executionPutMax").innerHTML = 
+			       statView.executionPutMax;
+		    
+		     
+		     document.getElementById("qfMessagePutAvg").innerHTML = 
+		       statView.qfMessagePutAvg;
+		     
+
+		     document.getElementById("qfMessagePutMin").innerHTML = 
+		       statView.qfMessagePutMin;
+		     
+		     document.getElementById("qfMessagePutMax").innerHTML = 
+			       statView.qfMessagePutMax;
+			 
+		}
+		</script>
+	</head>
+	<body>
+		<h1>GemFire Performance Simulation</h1>
+		<h2>Region Counts</h2>
+		<div>
+			<table>
+			<tr><td><label for="inMsg">InMsg </label></td><td>  <input id="inMsgSize" name="inMsg"/> </td></tr>
+			<tr><td><label for="orderDetal">OrderDetail</label></td><td><input id="orderDetailSize" name="orderDetail"/></td></tr>
+			<tr><td><label for="execution">Execution</label></td><td><input id="executionSize" name="execution"/></td></tr>
+			<tr><td><label for="outMsg">OutMsg</label></td><td><input id="outMsgSize" name="outMsg"/></td></tr>
+			<tr><td><label for="qfMessage">QfMessage</label></td><td><input id="qfMessageSize"  name="qfMessage"/></td></tr>
+			<tr><td><label for="qfMessage">Threads</label></td><td><input id="workerCount" type="number" name="workerCount" min="1" max="5"><br></td></tr>
+			
+			</table>
+			
+			<button onclick="return exeTest();">Submit</button>
+			<!-- button onclick="testWait();return false">Waiting Test</button-->
+		</div>
+		
+		
+		<div id="resultPanel" >
+			<img id="progressBar" src='images/progress.gif' style="display: none;"/>
+			
+			<table id="resultsTable" style="display: none;">
+				<thead>
+					<tr>
+						<th>Test Scenario</th>
+						<th>Average in Milliseconds</th>
+						<th>Min in Milliseconds</th>
+						<th>Max in Milliseconds</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					
+					<tr>
+					  <td>Region Put Operation - In Msg </td>
+					  <td id="inMsgPutAvg"> (ms)</td>
+					  <td id="inMsgPutMin"> (ms)</td>
+					  <td id="inMsgPutMax"> (ms)</td>
+					  
+					</tr>
+					<tr>
+					  <td>Region Put Operation - Order Detail </td>
+					  <td id="orderDetailPutAvg"> (ms)</td>
+					  <td id="orderDetailPutMin"> (ms)</td>
+					  <td id="orderDetailPutMax"> (ms)</td>
+					</tr>
+					<tr>	
+					  <td>Region Put Operation - Execution </td>
+					  <td id="executionPutAvg"> (ms)</td>
+					  <td id="executionPutMin"> (ms)</td>
+					  <td id="executionPutMax"> (ms)</td>
+					</tr>
+					<tr>	
+					  <td>Region Put Operation - OutMsg </td>
+					  <td id="outMsgPutAvg"> (ms)</td>
+					  <td id="outMsgPutMin"> (ms)</td>
+					  <td id="outMsgPutMax"> (ms)</td>
+					</tr>
+					<tr>	
+					  <td>Region Put Operation - QFMessage</td>
+					  <td id="qfMessagePutAvg"> (ms)</td>
+					  <td id="qfMessagePutMin"> (ms)</td>
+					  <td id="qfMessagePutMax"> (ms)</td>
+					</tr>
+					
+					<tr>	
+						<td colspan="4">&nbsp;</td>
+					</tr>
+					
+					<tr>
+						<td>Region Get Operation - In Msg </td>
+						<td id="inMsgGetAvg"> (ms)</td>
+						<td id="inMsgGetMin"> (ms)</td>
+						<td id="inMsgGetMax"> (ms)</td>
+					</tr>
+					<tr>
+						<td>Region Get Operation - Order Detail </td>
+						<td id="orderDetailGetAvg"> (ms)</td>
+						<td id="orderDetailGetMin"> (ms)</td>
+						<td id="orderDetailGetMax"> (ms)</td>
+					</tr>
+					<tr>	
+						<td>Region Get Operation - Execution </td>
+						<td id="executionGetAvg"> (ms)</td>
+						<td id="executionGetMin"> (ms)</td>
+						<td id="executionGetMax"> (ms)</td>
+					</tr>
+					<tr>	
+						<td>Region Get Operation - OutMsg </td>
+						<td id="outMsgGetAvg"> (ms)</td>
+						<td id="outMsgGetMin"> (ms)</td>
+						<td id="outMsgGetMax"> (ms)</td>
+					</tr>
+					<tr>	
+						<td>Region Get Operation - QFMessage</td>
+						<td id="qfMessageGetAvg"> (ms)</td>
+						<td id="qfMessageGetMin"> (ms)</td>
+						<td id="qfMessageGetMax"> (ms)</td>
+					</tr>
+					
+			
+				
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
