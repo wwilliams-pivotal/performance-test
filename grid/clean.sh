@@ -1,3 +1,3 @@
-rm -rf locatorA/*
-rm -rf serverVoya1/*
+rm -rf locator?/
+rm -rf server?/
 
